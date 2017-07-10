@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tecsun.dao.CsspQueryDAO">
+
+	<!-- 查询人员信息表总记录数 -->
+	<select id="getPersonInfoCount" resultType="java.lang.Integer">
+		select count(*) from basic_person_info t
+	</select>
+	
+	<!-- 分页查找人员信息 -->
+	<select id="listPersonInfo" parameterType="java.util.Map" resultType="com.tecsun.server.PersonInfo">
+		select tt.*  from (select t.*, rownum startrow
+		          from (select id, name, cert_num as certnum, rownum endrow
+		                  from basic_person_info) t
+		         where t.endrow &lt;= #{endRow}) tt
+		 where tt.startrow &gt;= #{startRow}
+	</select>
+	
+	<!-- 批量插入人员信息 -->
+	<insert id="insertPersonInfo" parameterType="java.util.List">
+		begin
+		<foreach collection="list" item="item" index="index" separator=";" > 
+			insert into basic_person_info(id,name,cert_num)
+			values(SEQ_BASIC_PERSION_INFO.NEXTVAL,#{item.name},#{item.certNum})
+    	</foreach> 
+    	;end;
+	</insert>
+	
+</mapper>
