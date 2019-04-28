@@ -5,11 +5,16 @@ import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.SocketChannel;
+import java.util.ArrayList;
 
 /**
  * Created by lwx on 2017/9/22.
  */
 public class OtherTest {
+
+    int i;
+    Integer ii;
+
     @Test
     public void test(){
         System.out.println(true);
@@ -22,5 +27,16 @@ public class OtherTest {
             e.printStackTrace();
         }
 
+    }
+
+    @Test
+    public void test2(){
+        System.out.println(i);
+        System.out.println(ii);
+
+        ii = 1;
+        System.out.println(ii);
+
+        int iii = 0b110;
     }
 }
